@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chavokim/Workspace/CP/samsung/treeinvest/main.cpp
+cstdio
+-
+vector
+-
+chrono
+-
+list
+-
+iterator
+-
+

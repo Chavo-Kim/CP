@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chavokim/Workspace/CP/samsung/babyshark/main.cpp
+cstdio
+-
+cmath
+-
+queue
+-
+utility
+-
+climits
+-
+

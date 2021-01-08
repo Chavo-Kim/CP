@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chavokim/Workspace/CP/samsung/peoplemove/main.cpp
+cstdio
+-
+queue
+-
+cmath
+-
+utility
+-
+

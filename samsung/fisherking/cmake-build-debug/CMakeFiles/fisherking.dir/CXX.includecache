@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chavokim/Workspace/CP/samsung/fisherking/main.cpp
+cstdio
+-
+cmath
+-
+vector
+-
+algorithm
+-
+

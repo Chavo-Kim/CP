@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/chavokim/Workspace/CP/samsung/dragoncurve/main.cpp
+cstdio
+-
+utility
+-
+set
+-
+vector
+-
+cmath
+-
+

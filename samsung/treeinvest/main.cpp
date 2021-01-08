@@ -1,0 +1,193 @@
+//https://www.acmicpc.net/problem/16235
+
+#include <cstdio>
+#include <vector>
+#include <chrono>
+#include <list>
+#include <iterator>
+#include <cassert>
+
+using namespace std;
+using namespace chrono;
+
+int n, m, k;
+int fert[11][11];
+long long map[11][11];
+int tmp[11][11];
+int cnt[11][11];
+int remov;
+
+struct tree{
+    int x;
+    int y;
+    int age;
+    tree(int x, int y, int age): x(x), y(y), age(age){
+
+    }
+};
+
+int ages[11][11][1001];
+
+void debug(){
+    printf("cnt\n");
+    for(int i =0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            printf("%d ", cnt[i][j]);
+        }
+        printf("\n");
+    }
+    printf("map\n");
+    for(int i =0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            printf("%d ", map[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+bool InRange(int x, int y){
+    return x >= 0 && x < n && y >= 0 && y < n;
+}
+
+void fert_init(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            map[i][j] = 5;
+        }
+    }
+}
+
+void init(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            tmp[i][j] = 0;
+        }
+    }
+}
+
+void insertionSort(int x, int y, int idx){
+    int curr = idx;
+    while((curr < (cnt[x][y] - 1)) && (ages[x][y][curr] < ages[x][y][curr+1])){
+        int tmp_ = ages[x][y][curr];
+        ages[x][y][curr] = ages[x][y][curr+1];
+        ages[x][y][curr+1] = tmp_;
+        curr++;
+    }
+}
+
+void grow(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            for(int h = cnt[i][j] - 1; h >= 0; h--){
+                if(map[i][j] >= ages[i][j][h]){
+                    map[i][j] -= ages[i][j][h];
+                    ages[i][j][h]++;
+                } else {
+                    tmp[i][j] += ages[i][j][h]/2;
+                    ages[i][j][h] = ages[i][j][--cnt[i][j]];
+                    //remov++;
+                    insertionSort(i, j, h);
+                }
+            }
+        }
+    }
+}
+
+void die(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            map[i][j] += tmp[i][j];
+        }
+    }
+}
+
+void addFert(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            map[i][j] += fert[i][j];
+        }
+    }
+}
+
+void addTrees(int x, int y){
+    int dx[8] = {0, 0, 1, -1, 1, 1, -1, -1};
+    int dy[8] = {1, -1, 0, 0, 1, -1, 1, -1};
+    for(int dir = 0; dir < 8; dir++){
+        int nx = x + dx[dir],ny = y + dy[dir];
+        if(InRange(nx, ny)){
+            ages[nx][ny][cnt[nx][ny]++] = 1;
+        }
+    }
+}
+
+
+void makeSon(){
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            for(int h = 0; h < cnt[i][j]; h++){
+                if((ages[i][j][h]%5)==0){
+                    addTrees(i, j);
+                }
+            }
+        }
+    }
+}
+
+void simul(){
+    grow();
+    die();
+    makeSon();
+    addFert();
+    init();
+}
+
+int ans(){
+    int ret = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            ret += cnt[i][j];
+        }
+    }
+    return ret;
+}
+
+int main() {
+//    freopen("../input.txt", "r", stdin);
+//    freopen("../output.txt", "w", stdout);
+    scanf("%d %d %d", &n, &m, &k);
+    assert(2 <= n && n <= 20);
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            scanf("%d ", &fert[i][j]);
+        }
+    }
+    fert_init();
+
+    for(int i = 0; i < m; i++){
+        int x, y, z;
+        scanf("%d %d %d", &x, &y, &z);
+        ages[x-1][y-1][cnt[x-1][y-1]++] = z;
+    }
+    for(int year = 0; year < k; year++){
+        simul();
+//        printf("%d\n", ans());
+//        debug();
+    }
+
+    printf("%d", ans());
+//    printf("%d\n", remov);
+
+    return 0;
+}
+
+//int main() {
+//    auto start = chrono::system_clock::now();
+//
+//    solve();
+//
+//    auto end = chrono::system_clock::now();
+//
+//    printf("%lld", duration_cast<milliseconds>(end - start).count());
+//}
