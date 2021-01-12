@@ -113,7 +113,7 @@ int ans(){
 }
 
 int main() {
-    freopen("../input.txt", "r", stdin);
+    //freopen("../input.txt", "r", stdin);
     scanf("%d %d %d", &n, &m, &t);
     for(int i = 0 ; i < n; i++){
         for(int j = 0; j < m; j++){
